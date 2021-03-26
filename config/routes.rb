@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :variations
+  resources :colors
+  resources :sizes
   devise_for :users
   devise_for :admins
   root to: "home#index"

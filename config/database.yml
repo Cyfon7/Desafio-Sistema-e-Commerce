@@ -18,6 +18,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
 
+# Disabled
 #  username: developer
 #  password: developer.123
 #  host: localhost
