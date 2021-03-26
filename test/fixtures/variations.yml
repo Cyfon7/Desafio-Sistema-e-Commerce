@@ -2,12 +2,12 @@
 
 one:
   stock: 1
-  product: 
-  size: 
-  color: 
+  product_id: 1
+  size_id: 1
+  color_id: 1
 
 two:
   stock: 1
-  product: 
-  size: 
-  color: 
+  product_id: 2 
+  size_id: 2
+  color_id: 2
