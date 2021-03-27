@@ -1,3 +1,5 @@
+Product.delete_all
+
 category_1 = Category.find_by(name: "Smartphones")
 
 p_01 = Product.create(name: "iPhone XS", description: "Super retina screen", stock: 10, price: 900, sku: "AIX0120")

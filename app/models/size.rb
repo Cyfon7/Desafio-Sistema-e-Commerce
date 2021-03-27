@@ -1,3 +1,3 @@
 class Size < ApplicationRecord
-    belongs_to :variation
+   has_many :variations#, dependent: :destroy
 end

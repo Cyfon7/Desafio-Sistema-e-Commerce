@@ -1,3 +1,5 @@
+Size.delete_all
+
 size_list = [ "XS",
               "S",
               "M",
@@ -5,4 +7,4 @@ size_list = [ "XS",
               "XL"
             ]
 
-size_list.each { |size_name| Size.create(name: size_name) }
+size_list.each { |size_name| Size.create!(name: size_name) }

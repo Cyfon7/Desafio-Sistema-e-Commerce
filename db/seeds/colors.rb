@@ -1,3 +1,5 @@
+Color.delete_all
+
 colors_list = [ "red",
                  "green",
                  "blue",
@@ -6,4 +8,4 @@ colors_list = [ "red",
                  "gray"
                 ]
 
-colors_list.each { |color_name| Color.create(name: color_name) }
+colors_list.each { |color_name| Color.create!(name: color_name) }
