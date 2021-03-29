@@ -30,10 +30,10 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
   create_table "attributes", force: :cascade do |t|
     t.string "name"
     t.string "value"
-    t.bigint "attribute_id"
+    t.bigint "variation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attribute_id"], name: "index_attributes_on_attribute_id"
+    t.index ["variation_id"], name: "index_attributes_on_variation_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -120,8 +120,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.index ["product_id"], name: "index_variations_on_product_id"
   end
 
-  add_foreign_key "attributes", "attributes"
-  add_foreign_key "categories", "categories"
+  add_foreign_key "attributes", "variations"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
