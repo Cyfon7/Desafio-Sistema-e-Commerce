@@ -1,6 +1,6 @@
-puts "Item Attribute Table"
+print "Item Attribute Table"
 
-puts "Cleaning"
+print " => Cleaning"
 ItemAttribute.delete_all
 
 att_default = {
@@ -8,7 +8,7 @@ att_default = {
     size: ["XS", "S", "M", "L", "XL"]
 }
 
-print "Seeding"
+print " => Seeding"
 att_default.each do |k, v|
     v.each do |arr|
         ItemAttribute.create!(name: k, value: arr)
