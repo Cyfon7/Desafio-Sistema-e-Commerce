@@ -1,8 +1,7 @@
 class Variation < ApplicationRecord
-    belongs_to :color
+    has_and_belongs_to_many :item_attributes, dependent: :destroy
 
-    belongs_to :size
-    belongs_to :product
+    #belongs_to :product
 
     def self.product_list
         x = Variation.select(:product_id).distinct.pluck(:product_id)

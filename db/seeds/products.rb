@@ -1,3 +1,4 @@
+=begin
 Product.delete_all
 
 category_1 = Category.find_by(name: "Smartphones")
@@ -36,3 +37,4 @@ p_09.categories << category_3
 p_10 = Product.create(name: "Casio L12 Watch", description: "Never be late again, arrive on time", stock: 8, price: 50, sku: "CW7788")
 p_10.categories << category_3
 
+=end

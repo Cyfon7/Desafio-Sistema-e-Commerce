@@ -14,11 +14,18 @@ class DropOldBringNewTables < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :attributes do |t|
+    create_table :item_attributes do |t|
       t.string :name, unique: true
       t.string :value, unique: true
 
+    #  t.references :variation, foreign_key: true
+
+      t.timestamps
+    end
+
+    create_table :item_attributes_variations do |t|
       t.references :variation, foreign_key: true
+      t.references :item_attribute, foreign_key: true
 
       t.timestamps
     end
