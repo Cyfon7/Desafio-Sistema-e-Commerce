@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
-  resources :variations
-  resources :colors
-  resources :sizes
   devise_for :users
   devise_for :admins
+
   root to: "home#index"
 
   authenticate :admin do
     resources :products
     resources :categories
+
+    resources :variations do
+      resources :item_attributes
+    end
   end
 
   resource :cart, only: [:show, :update] do

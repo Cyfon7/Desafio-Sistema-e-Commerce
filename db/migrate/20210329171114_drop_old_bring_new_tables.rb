@@ -18,8 +18,6 @@ class DropOldBringNewTables < ActiveRecord::Migration[5.2]
       t.string :name, unique: true
       t.string :value, unique: true
 
-    #  t.references :variation, foreign_key: true
-
       t.timestamps
     end
 

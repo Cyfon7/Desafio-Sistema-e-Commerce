@@ -1,6 +1,8 @@
+print "Variation Table"
+
+print " => Cleaning"
 Variation.delete_all
 
-puts "Seed Variations"
 =begin
 products = Product.all
 sizes = Size.all
@@ -14,3 +16,5 @@ products.each do |product|
     end
 end
 =end
+
+puts ""
