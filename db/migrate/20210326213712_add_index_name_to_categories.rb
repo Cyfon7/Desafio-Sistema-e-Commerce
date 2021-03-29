@@ -1,6 +1,6 @@
 class AddIndexNameToCategories < ActiveRecord::Migration[5.2]
   def change
-    add_index :categories, :name, unique: true
-    add_column :categories, :category_id, :integer
+    add_column :categories, :category_id, :integer, index: true
+    add_foreign_key :categories, :categories, column: :category_id
   end
 end
