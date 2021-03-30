@@ -1,6 +1,8 @@
 <div class="nested-fields">
     <div class="field">
-        <%= f.select :variation_id, Variation.all.collect { |var| [var.value, var.id] }, prompt: "Choose Variation: " %>
+        <%= f.select 
+        <%= f.select :variation_id, Variation.where(variation_id: nil).collect { |var| [var.value, var.id] }, prompt: "Choose Size: " %>
+        <%= f.select :variation_id, Variation.where.not(variation_id: nil).select(:value).distinct.collect { |var| [var.value, var.id] }, prompt: "Choose Color: " %>
     </div>
 
     <div class="field">

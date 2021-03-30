@@ -5,8 +5,8 @@ class DropOldBringNewTables < ActiveRecord::Migration[5.2]
     drop_table :colors
 
     create_table :variations do |t|
-      t.string :name, unique: true
-      t.string :value, unique: true
+      t.string :name#, unique: true
+      t.string :value#, unique: true
 
       t.timestamps
     end
@@ -26,6 +26,9 @@ class DropOldBringNewTables < ActiveRecord::Migration[5.2]
 
     remove_column :products, :stock
     remove_column :products, :sku
+
+    add_column :variations, :variation_id, :integer, index: true
+    add_foreign_key :variations, :variations, column: :variation_id
 
   end
 end

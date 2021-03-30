@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "variation_id"
   end
 
   add_foreign_key "categories", "categories"
@@ -128,4 +129,5 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
   add_foreign_key "payments", "payment_methods"
   add_foreign_key "product_variations", "products"
   add_foreign_key "product_variations", "variations"
+  add_foreign_key "variations", "variations"
 end

@@ -9,10 +9,12 @@ att_default = {
 }
 
 print " => Seeding"
-att_default.each do |k, v|
-    v.each do |arr|
-        Variation.create!(name: k, value: arr)
-        print "."
+
+att_default[:size].each do |val|
+    temp_att = Variation.create!(name: :size, value: val)
+    att_default[:color].each do |val2|
+        Variation.create!(name: :color, value: val2, variation_id: temp_att.id)
     end
+    print "."
 end
 puts ""
