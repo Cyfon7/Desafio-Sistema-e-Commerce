@@ -12,14 +12,25 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :stock %>
-    <%= form.number_field :stock %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  
+  <%= link_to 'Create Option', new_option_path %>
+
+  <div class="field">  
+    <div id="options">
+      <%= form.fields_for :variation_options do |option_var| %>
+        <%= render "variation_option_fields", f: option_var %>
+      <% end %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association form, :variation_options do %>
+        <span class="pl-1"><i class="fas fa-plus-square fa-2x"></i> Add Option </span>
+      <% end %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :product %>
-    <%= form.text_field :product %>
-  </div>
 
   <div class="actions">
     <%= form.submit %>

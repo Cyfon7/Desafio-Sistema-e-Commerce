@@ -10,7 +10,6 @@
       <th>Description</th>
       <th>Stock</th>
       <th>Price</th>
-      <th>Sku</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,9 +20,12 @@
         <td><%= product.id %></td>
         <td><%= product.name %></td>
         <td><%= product.description %></td>
-        <td><%#= product.stock %></td>
+        <td>
+          <%= product.product_variations.map.sum do |variation| %>
+            <% variation.stock %>
+          <% end %>
+        </td>
         <td><%= product.price %></td>
-        <td><%#= product.sku %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>

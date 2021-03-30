@@ -5,10 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>Stock</th>
-      <th>Product</th>
-      <th>Size</th>
-      <th>Color</th>
+      <th>#</th>
+      <th>Name</th>
+      <th>Times Used</th>
+      <th>Current Products</th>
+      <th>Options</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +17,23 @@
   <tbody>
     <% @variations.each do |variation| %>
       <tr>
-        <td><%= variation.stock %></td>
-        <td><%= variation.product %></td>
-        <td><%= variation.size %></td>
-        <td><%= variation.color %></td>
+        <td><%= variation.id %></td>
+        <td><%= variation.name %></td>
+        <td><%= variation.product_variations.count %></td>
+        <td>
+          <ul>
+            <% variation.product_variations.each do |var| %>
+              <li><%= var.product.name %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <% variation.options.each do |opt| %>
+              <li><%= opt.name %>: <%= opt.value %></li>
+            <% end %>
+          </ul>
+        </td>
         <td><%= link_to 'Show', variation %></td>
         <td><%= link_to 'Edit', edit_variation_path(variation) %></td>
         <td><%= link_to 'Destroy', variation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,4 +44,4 @@
 
 <br>
 
-<%= link_to 'New Variation', new_product_variation_path %>
+<%= link_to 'New Variation', new_variation_path %>

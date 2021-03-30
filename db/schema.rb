@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.index ["product_id", "category_id"], name: "index_categories_products_on_product_id_and_category_id"
   end
 
+  create_table "options", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
@@ -81,16 +88,16 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.index ["payment_method_id"], name: "index_payments_on_payment_method_id"
   end
 
-  create_table "product_variations", force: :cascade do |t|
+  create_table "product_variations", id: false, force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "variation_id", null: false
     t.integer "stock"
     t.float "added_price"
     t.string "sku"
-    t.bigint "variation_id"
-    t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_variations_on_product_id"
-    t.index ["variation_id"], name: "index_product_variations_on_variation_id"
+    t.index ["product_id", "variation_id"], name: "index_product_variations_on_product_id_and_variation_id"
+    t.index ["variation_id", "product_id"], name: "index_product_variations_on_variation_id_and_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -113,12 +120,19 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "variations", force: :cascade do |t|
-    t.string "name"
-    t.string "value"
+  create_table "variation_options", id: false, force: :cascade do |t|
+    t.bigint "variation_id", null: false
+    t.bigint "option_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "variation_id"
+    t.index ["option_id", "variation_id"], name: "index_variation_options_on_option_id_and_variation_id"
+    t.index ["variation_id", "option_id"], name: "index_variation_options_on_variation_id_and_option_id"
+  end
+
+  create_table "variations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "categories", "categories"
@@ -127,7 +141,4 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "payment_methods"
-  add_foreign_key "product_variations", "products"
-  add_foreign_key "product_variations", "variations"
-  add_foreign_key "variations", "variations"
 end

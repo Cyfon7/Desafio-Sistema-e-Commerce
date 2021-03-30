@@ -13,6 +13,8 @@ class VariationsController < ApplicationController
   # GET /variations/new
   def new
     @variation = Variation.new
+    @variation.variation_options.build
+    
   end
 
   # GET /variations/1/edit
@@ -25,7 +27,7 @@ class VariationsController < ApplicationController
 
     respond_to do |format|
       if @variation.save
-        format.html { redirect_to @variation, notice: "Variation was successfully created." }
+        format.html { redirect_to new_product_path, notice: "Variation was successfully created." }
         format.json { render :show, status: :created, location: @variation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -64,6 +66,6 @@ class VariationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def variation_params
-      params.require(:variation).permit(:stock, :product, :size, :color)
+      params.require(:variation).permit(:name, variation_options_attributes: [:id, :variation_id, :option_id, :_destroy])
     end
 end

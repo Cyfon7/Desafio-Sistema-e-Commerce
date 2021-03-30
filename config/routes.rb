@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   
     resources :products
       resources :variations 
-        resources :item_attributes
+      resources :options
 
   end
 

@@ -1,24 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Stock:</strong>
-  <%= @variation.stock %>
+  <strong>Name:</strong>
+  <%= @variation.name %>
 </p>
 
 <p>
-  <strong>Product:</strong>
-  <%= @variation.product %>
+  <strong>Times Used:</strong>
+  <%= @variation.product_variations.count %>
 </p>
 
 <p>
-  <strong>Size:</strong>
-  <%= @variation.size %>
+  <strong>Current Products:</strong>
+  <ul>
+    <% @variation.product_variations.each do |var| %>
+      <li><%= var.product.name %></li>
+    <% end %>
+  </ul>
 </p>
 
 <p>
-  <strong>Color:</strong>
-  <%= @variation.color %>
+  <strong>Options:</strong>
+  <ul>
+    <% @variation.options.each do |opt| %>
+      <li><%= opt.name %>: <%= opt.value %></li>
+    <% end %>
+  </ul>
 </p>
+
 
 <%= link_to 'Edit', edit_variation_path(@variation) %> |
 <%= link_to 'Back', variations_path %>
