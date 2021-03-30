@@ -1,7 +1,7 @@
-print "Item Attribute Table"
+print "Variation Table"
 
 print " => Cleaning"
-ItemAttribute.delete_all
+Variation.delete_all
 
 att_default = {
     color: ["White", "Black", "Red", "Green", "Blue", "Yellow", "Orange", "Purple", "Magenta", "Cyan"],
@@ -11,7 +11,7 @@ att_default = {
 print " => Seeding"
 att_default.each do |k, v|
     v.each do |arr|
-        ItemAttribute.create!(name: k, value: arr)
+        Variation.create!(name: k, value: arr)
         print "."
     end
 end

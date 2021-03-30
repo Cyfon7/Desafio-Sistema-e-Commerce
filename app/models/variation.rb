@@ -1,9 +1,6 @@
 class Variation < ApplicationRecord
-    has_and_belongs_to_many :item_attributes, dependent: :destroy
-
-    accepts_nested_attributes_for :item_attributes
-
-    belongs_to :product
+    has_many :products_variations
+    has_many :products, through: :product_variations, dependent: :destroy
 
     def self.product_list
         x = Variation.select(:product_id).distinct.pluck(:product_id)

@@ -39,6 +39,20 @@
     <% end %>
   </div>
 
+  <div>
+    <div id="variations">
+      <%= form.fields_for :product_variations do |variation| %>
+        <%= render "product_variations_fields", f: variation %>
+      <% end %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association form, :product_variations, partial: 'products/product_variations_fields' do %>
+        <span class="pl-1"><i class="fas-plus-square fa-2x"></i> Add Variation </span>
+      <% end %>
+    </div>
+  </div>
+
+
   <div class="actions">
     <%= form.submit %>
   </div>

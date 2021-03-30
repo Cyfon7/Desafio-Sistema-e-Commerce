@@ -41,22 +41,6 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.index ["product_id", "category_id"], name: "index_categories_products_on_product_id_and_category_id"
   end
 
-  create_table "item_attributes", force: :cascade do |t|
-    t.string "name"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "item_attributes_variations", force: :cascade do |t|
-    t.bigint "variation_id"
-    t.bigint "item_attribute_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_attribute_id"], name: "index_item_attributes_variations_on_item_attribute_id"
-    t.index ["variation_id"], name: "index_item_attributes_variations_on_variation_id"
-  end
-
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
@@ -97,6 +81,18 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
     t.index ["payment_method_id"], name: "index_payments_on_payment_method_id"
   end
 
+  create_table "product_variations", force: :cascade do |t|
+    t.integer "stock"
+    t.float "added_price"
+    t.string "sku"
+    t.bigint "variation_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_variations_on_product_id"
+    t.index ["variation_id"], name: "index_product_variations_on_variation_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -118,22 +114,18 @@ ActiveRecord::Schema.define(version: 2021_03_29_171114) do
   end
 
   create_table "variations", force: :cascade do |t|
-    t.integer "stock"
-    t.float "added_price"
-    t.string "sku"
-    t.bigint "product_id"
+    t.string "name"
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_variations_on_product_id"
   end
 
   add_foreign_key "categories", "categories"
-  add_foreign_key "item_attributes_variations", "item_attributes"
-  add_foreign_key "item_attributes_variations", "variations"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "payment_methods"
-  add_foreign_key "variations", "products"
+  add_foreign_key "product_variations", "products"
+  add_foreign_key "product_variations", "variations"
 end

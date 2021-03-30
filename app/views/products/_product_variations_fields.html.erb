@@ -1,0 +1,25 @@
+<div class="nested-fields">
+    <div class="field">
+        <%= f.select :variation_id, Variation.all.collect { |var| [var.value, var.id] }, prompt: "Choose Variation: " %>
+    </div>
+
+    <div class="field">
+      <%= f.label :stock %> 
+      <%= f.number_field :stock %>
+    </div>
+
+    <div class="field">
+      <%= f.label :added_price %> 
+      <%= f.number_field :added_price, min: 0.0, step: 0.5 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :sku %>
+      <%= f.text_field :sku %>
+    </div>
+
+    <%= link_to_remove_association f do %>
+        <i class="fas fa-minus-square fa-2x"></i>
+    <% end %>
+</div>
+
