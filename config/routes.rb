@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   authenticate :admin do
-    resources :products
     resources :categories
+  
+    resources :products
+      resources :variations 
+        resources :item_attributes
 
-    resources :variations do
-      resources :item_attributes
-    end
   end
 
   resource :cart, only: [:show, :update] do
