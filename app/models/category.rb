@@ -7,17 +7,28 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  def children_categories
-    Category.all.where(category_id: self.id)
-  end
+  #Retrieves a hierarchical list of categories
+  def self.all_children(parent_id = nil)
+    categories_hash = Hash.new()
 
-#Aplicar Recursividad 
-  def self.show_categories
-    categories_hash = {}
-    Category.all.where(category_id: nil).each do |parent|
-      categories_hash[ parent.name.to_sym ] = parent.children_categories
+    Category.all.where(category_id: parent_id).each do |parent|
+      categories_hash[ parent.name.to_sym ] = Hash.new()
+
+      childrens = parent.subcategories
+
+      unless childrens.empty?
+        childrens.each do |child|
+          categories_hash[ parent.name.to_sym ][ child.name.to_sym ] = Hash.new()
+
+          unless child.subcategories.empty?
+            categories_hash[ parent.name.to_sym ][ child.name.to_sym ] = Category.all_children(child.id)
+          end
+
+        end
+      end
     end
     categories_hash
   end
 
 end
+
