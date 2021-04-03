@@ -4,8 +4,9 @@ class CartsController < ApplicationController
   def update
     product = params[:cart][:product_id]
     quantity = params[:cart][:quantity]
-
-    current_order.add_product(product, quantity)
+    #variation added
+    variation = params[:cart][:variation_id]
+    current_order.add_product(product, quantity, variation)
 
     redirect_to root_url, notice: "Product added successfuly"
   end
