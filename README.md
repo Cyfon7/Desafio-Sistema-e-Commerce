@@ -1,15 +1,15 @@
 ### E-COMMERCE PROJECT
 
-1. [ERD here](../tree/main/erd_ecommerce.pdf.pdf)
+1. [ERD here](../blob/main/erd_ecommerce.pdf)
 
 2. Category nested levels are implemented with a self-join, also the Category model has an uniqueness validation to ensure no category is the same, therefore no category has the same parent.
 to run the test use:
 
 -`rspec spec/models/category_spec.rb`
 
--[Test can be found here](..tree/main/spec/models/category_spec.rb)
+-[Test can be found here](..blob/main/spec/models/category_spec.rb)
 
-3. Method `all_children` generates the whole category list in a nested hash. It can be found in the [Category model](..tree/main/app/models/category.rb)
+3. Method `all_children` generates the whole category list in a nested hash. It can be found in the [Category model](..blob/main/app/models/category.rb)
 
 4. The catalog is implemented by using the `Product` & `ProductVariation` models. The `ProductVariation` contains all info about stocks, prices and SKUs
 
@@ -33,14 +33,16 @@ By getting the ids of the products with stock, we retrieve only info of the prod
 
 ###### Total Price = product.price + variation.added_price
 
-In order to achieve this calculation, its necesary that variation_id, be added to the [CartController](..tree/main/app/controllers/carts_controller.rb) & [Order](..tree/main/app/models/order.rb) model, and every element related to the cart process.
+In order to achieve this calculation, its necesary that variation_id, be added to the [CartController](..blob/main/app/controllers/carts_controller.rb) & [Order](..blob/main/app/models/order.rb) model, and every element related to the cart process.
 
-- [Here ERD with added modifications](../tree/main/erd_ecommerce_OrderItem.pdf)
+- [Here ERD with added modifications](../blob/main/erd_ecommerce_OrderItem.pdf)
 
 
 7. For the coupons feature, the proposal here is a design which work for both types of coupons:
 The coupon must contain:
 
+| Field | Description |
+| --- | --- |
 | **Title:** | Name of the coupon |
 | **Conditions:** | A description of the coupon |
 | **Discount:** | Two enum type options (Percentage or Fixed) |
@@ -64,7 +66,7 @@ The coupon must contain:
     compute_total
   end
 ```
-- [Here ERD Coupons](../tree/main/erd_coupons.pdf)
+- [Here ERD Coupons](../blob/main/erd_coupons.pdf)
 
 ##### Schema of Coupons
 ```ruby
