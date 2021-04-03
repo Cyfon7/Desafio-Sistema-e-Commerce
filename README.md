@@ -29,6 +29,14 @@ By getting the ids of the products with stock, we retrieve only info of the prod
 
 - After the variation its selected you will be able to buy the item
 
+#### Management
+| Dashboards url |  |
+| --- | --- |
+| ../products | Create Products with nested attributes |
+| ../variations | Create Variations with nested options |
+| ../options | Create options |
+
+
 5. Because ProductVariation summarize all the details of a variations, because affects the total price of a product now is:
 
 ###### Total Price = product.price + variation.added_price
