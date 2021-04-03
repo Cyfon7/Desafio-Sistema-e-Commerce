@@ -1,0 +1,13 @@
+<%= form_with(url: do_search_path, local: true) do |form| %>
+
+    <div class="field">
+        <%= form.select :variation_id, @options.map { |op| [ "#{op[1][0][0]}: #{op[1][0][1]} -> #{op[1][1][0]}: #{op[1][1][1]}      + $#{op[2]}" , op[0].id  ] } , prompt: "Choose Variation:" %>
+    
+        <%= form.hidden_field :id, value: params[:id] %>
+        
+        <button class="actions btn btn-light" type="form.submit">
+            <i class="fas fa-search"></i>
+        </button>  
+    </div>
+
+<% end %>

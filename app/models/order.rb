@@ -3,8 +3,8 @@ class Order < ApplicationRecord
 
   belongs_to :user
 
-  has_many :order_items
-  has_many :products, through: :order_items, dependent: destroy
+  has_many :order_items                    #This dependent affect the Order Table to be accessed           
+  has_many :products, through: :order_items#, dependent: destroy
   has_many :payments, dependent: :destroy
 
   validates :number, uniqueness: true

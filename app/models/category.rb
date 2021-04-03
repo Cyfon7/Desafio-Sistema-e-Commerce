@@ -8,6 +8,7 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   #Retrieves a hierarchical list of categories
+  #Test it in rails console
   def self.all_children(parent_id = nil)
     categories_hash = Hash.new()
 
@@ -26,7 +27,9 @@ class Category < ApplicationRecord
 
         end
       end
+      
     end
+
     categories_hash
   end
 
