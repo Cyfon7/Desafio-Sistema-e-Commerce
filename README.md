@@ -1,6 +1,6 @@
 #### E-COMMERCE PROJECT
 
-1. [ERD here](../tree/db-redef/erd.pdf)
+1. [ERD here](../tree/db-redef/erd_ecommerce.pdf.pdf)
 
 2. Category nested levels are implemented with a self-join, also the Category model has an uniqueness validation to ensure no category is the same, therefore no category has the same parent.
 to run the test use `rspec spec/models/category_spec.rb`
@@ -33,4 +33,74 @@ by getting the ids of the products with stock we retrieve only info of the produ
 
 in order to achieve this calculation, its necesary that variation_id, be added to the [CartController](..tree/db-redef/app/controllers/carts_controller.rb) & [Order](..tree/db-redef/app/models/order.rb) model, and every element related to the cart process.
 
-7. 
+[ERD with added modifications](../tree/db-redef/erd_ecommerce_OrderItem.pdf)
+
+
+7. For the coupons feature, the proposal here is a design which work for both types of coupons:
+..* The coupon must contain:
+.....* **Title:** Name of the coupon
+.....* **Conditions:** A description of the coupon
+.....* **Discount:** Two enum type options (Percentage or Fixed)
+.....* **Amount:** The meaning depends of Discount value. When its percentage, internally it should be saved like e. for Discount 70%, amount must be 0.7.
+.....* **Remaining_uses:** How many times the coupon can be used
+.....* **Code:** A Predefined or random string to claim the coupon
+.....* **Expires_at:** Date of expiration. If `nil` then never expires
+.....* **User_Authorized:** Defines by user email who can claim the coupon. If `nil` then is public
+
+..* In Order model it should be a method that includes the coupon like an item, but the price is negative, so the discount can be applied
+```ruby
+  def apply_coupon
+    current_order = Order.find(params[:id])
+    coupon = Coupon.where(code: params[:code])
+    if coupon.discount == :percentage
+        order_items.create(quantity: 1, price: -(current_order.total * coupon.amount) )
+    else
+        order_items.create(quantity: 1, price: -coupon.amount)
+    end
+    compute_total
+  end
+```
+
+##### Schema of Coupons
+```ruby
+  create_table "coupons", force: :cascade do |t|
+    t.string "title"
+    t.text "conditions"
+    t.integer "discount"
+    t.float "amount"
+    t.string "remaining_uses"
+    t.string "code"
+    t.date "expires_at"
+    t.string "user_authorized"
+  end
+```
+
+##### User Model
+```ruby
+class User < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  has_many :orders, dependent: :destroy
+
+  has_many :user_coupons
+  has_many :coupons, through: :user_coupons
+end
+```
+
+##### Coupon Model
+```ruby
+class Coupon < ApplicationRecord
+    has_many :user_coupons
+    has_many :users, through: :user_coupons
+end
+```
+
+##### UserCoupon Model
+```ruby
+class UserCoupon < ApplicationRecord
+    belongs_to :user
+    belongs_to :coupon
+end
+```
+
+[ERD Coupons](../tree/db-redef/erd_coupons.pdf)

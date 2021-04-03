@@ -41,6 +41,20 @@ class Order < ApplicationRecord
     end
   end
 
+=begin
+  #proposal for coupon
+  def apply_coupon
+    current_order = Order.find(params[:id])
+    coupon = Coupon.where(code: params[:code])
+    if coupon.discount == :percentage
+        order_items.create(quantity: 1, price: -(current_order.total * coupon.amount) )
+    else
+        order_items.create(quantity: 1, price: coupon.amount)
+    end
+    compute_total
+  end
+=end
+
   def compute_total
     sum = 0
     order_items.each do |item|
